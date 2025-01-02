@@ -41,7 +41,6 @@ public class SecurityConfig {
                                 .requestMatchers("/uploads/*").permitAll()
                                 .requestMatchers("/api/webhooks/*").permitAll()
                                 .requestMatchers("/api/webhooks*").permitAll()
-                                .requestMatchers("/api/payment/*").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

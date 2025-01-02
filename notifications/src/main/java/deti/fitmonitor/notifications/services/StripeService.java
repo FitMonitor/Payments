@@ -20,7 +20,7 @@ public class StripeService {
     @Value("${stripe.api.key}")
     private String stripeApiKey;
 
-    public Map<String, String> createCheckoutSession(Long amount, String currency, String successUrl, String cancelUrl) throws Exception {
+    public Map<String, String> createCheckoutSession(Long amount, String currency, String successUrl, String cancelUrl, String userSub) throws Exception {
         System.out.println("somf3iowfnowijn");
         logger.info("Creating Stripe checkout session with amount: {}, currency: {}, successUrl: {}, cancelUrl: {}", amount, currency, successUrl, cancelUrl);
 
@@ -44,6 +44,7 @@ public class StripeService {
                                                 .build())
                                         .build())
                         .build())
+                        .putMetadata("userSub", userSub)
                 .build();
             Session session = Session.create(params);
 
