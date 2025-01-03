@@ -16,6 +16,10 @@ import deti.fitmonitor.notifications.models.Payments;
 import deti.fitmonitor.notifications.services.StripeService;
 import deti.fitmonitor.notifications.services.PaymentsService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/api/payment")
 @CrossOrigin("http://localhost:4200")
@@ -32,6 +36,11 @@ public class PaymentController {
     }
 
     @PostMapping("/create-checkout-session")
+    @Operation(summary = "Create a checkout session")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Checkout session created"),
+        @ApiResponse(responseCode = "400", description = "Error creating checkout session")
+    })
     public Map<String, String> createCheckoutSession(@AuthenticationPrincipal String userSub, @RequestBody Map<String, Object> request) throws Exception {
         Long amount = Long.valueOf(request.get("amount").toString());
         String currency = request.get("currency").toString();
@@ -41,6 +50,10 @@ public class PaymentController {
     }
 
     @GetMapping("/user/subscriptiondate")
+    @Operation(summary = "Get the subscription date of the user")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Subscription date retrieved"),
+    })
     public String getSubscriptionDate(@AuthenticationPrincipal String userSub) {
         Payments payment = paymentsService.getPayment(userSub);
         if (payment != null) {

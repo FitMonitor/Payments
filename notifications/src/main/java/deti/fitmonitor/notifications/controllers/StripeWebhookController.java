@@ -9,6 +9,10 @@ import com.stripe.model.Event;
 import com.stripe.net.Webhook;
 import deti.fitmonitor.notifications.services.StripeWebhookService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/api/webhooks")
 public class StripeWebhookController {
@@ -24,6 +28,11 @@ public class StripeWebhookController {
     }
 
     @PostMapping
+    @Operation(summary = "Handle Stripe webhook events")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Webhook event handled"),
+        @ApiResponse(responseCode = "400", description = "Error handling webhook event")
+    })
     public void handleWebhook(@RequestBody String payload, @RequestHeader("Stripe-Signature") String sigHeader) {
         try {
             Event event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
