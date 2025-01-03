@@ -21,13 +21,10 @@ public class StripeService {
     private String stripeApiKey;
 
     public Map<String, String> createCheckoutSession(Long amount, String currency, String successUrl, String cancelUrl, String userSub) throws Exception {
-        System.out.println("somf3iowfnowijn");
-        logger.info("Creating Stripe checkout session with amount: {}, currency: {}, successUrl: {}, cancelUrl: {}", amount, currency, successUrl, cancelUrl);
 
         Stripe.apiKey = stripeApiKey;
 
         try {
-            System.out.print("lol");
             SessionCreateParams params = SessionCreateParams.builder()
                 .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
@@ -52,13 +49,12 @@ public class StripeService {
 
             // Return the session ID in the response
             Map<String, String> response = new HashMap<>();
-            //response.put("id", session.getId());
             response.put("url", session.getUrl());
             return response;
 
         } catch (Exception e) {
             logger.error("Error occurred while craftereating the Stripe checkout session", e);
-            throw e; // Rethrow the exception  logging it
+            throw new Exception("Error occurred while creating the Stripe checkout session");
         }
     }
 }

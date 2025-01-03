@@ -1,6 +1,8 @@
 package deti.fitmonitor.notifications.controllers;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import com.stripe.model.Event;
@@ -15,6 +17,8 @@ public class StripeWebhookController {
 
     private final StripeWebhookService stripeWebhookService;
 
+    private static final Logger logger = LoggerFactory.getLogger(StripeWebhookController.class);
+
     public StripeWebhookController(StripeWebhookService stripeWebhookService) {
         this.stripeWebhookService = stripeWebhookService;
     }
@@ -27,19 +31,15 @@ public class StripeWebhookController {
             switch (event.getType()) {
                 case "checkout.session.completed":
                     // Handle successful payment
-                    System.out.println("Payment successful: " + event.toString());
+                    logger.info("Payment successful: " + event.toString());
                     stripeWebhookService.handlePaymentSucceededEvent(event.toString());
                     break;
                 default:
-                    System.out.println("Unhandled event type: " + event.getType());
+                    logger.info("Unhandled event type: " + event.getType());
             }
         } catch (Exception e) {
-            System.out.println("Error while handling webhook: " + e.getMessage());
+            logger.error("Error while handling webhook: " + e.getMessage());
         }
     }
     
-    @GetMapping("/x")
-    public String getHello(){
-        return "Hello World";
-    }
 }

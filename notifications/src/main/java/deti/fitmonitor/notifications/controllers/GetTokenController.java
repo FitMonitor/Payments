@@ -33,6 +33,8 @@ public class GetTokenController {
     private final RestTemplate restTemplate;
     private final JwtUtilService jwtUtilService; // Add JwtUtilService
 
+    private static final String ID_TOKEN = "id_token";
+
     // Caching map
     private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
     // Lock map to handle concurrent requests for the same code
@@ -55,7 +57,7 @@ public class GetTokenController {
 
             JsonObject jsonObject = new JsonParser().parse(jwtToken).getAsJsonObject();
 
-            String id_token = jsonObject.get("id_token").getAsString();
+            String id_token = jsonObject.get(ID_TOKEN).getAsString();
 
 
             // Extract roles from the token
@@ -77,7 +79,7 @@ public class GetTokenController {
 
                 JsonObject jsonObject = new JsonParser().parse(jwtToken).getAsJsonObject();
 
-                String id_token = jsonObject.get("id_token").getAsString();
+                String id_token = jsonObject.get(ID_TOKEN).getAsString();
 
 
                 // Extract roles from the token
@@ -109,7 +111,7 @@ public class GetTokenController {
 
             JsonObject jsonObject = new JsonParser().parse(jwtToken).getAsJsonObject();
 
-            String id_token = jsonObject.get("id_token").getAsString();
+            String id_token = jsonObject.get(ID_TOKEN).getAsString();
 
 
             // Extract roles from the token
@@ -124,10 +126,6 @@ public class GetTokenController {
         }
     }
 
-    // Helper method to create response map
-    private Map<String, Object> getTokenResponse(String token) {
-        return Map.of("token", token, "roles", List.of());
-    }
 
     // Overloaded helper method to create response map with roles
     private Map<String, Object> getTokenResponse(String token, List<String> roles) {

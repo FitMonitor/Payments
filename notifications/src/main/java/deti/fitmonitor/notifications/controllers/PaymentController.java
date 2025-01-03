@@ -18,14 +18,18 @@ import deti.fitmonitor.notifications.services.PaymentsService;
 
 @RestController
 @RequestMapping("/api/payment")
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:4200")
 public class PaymentController {
 
-    @Autowired
     private PaymentsService paymentsService;
 
-    @Autowired
     private StripeService stripeService;
+
+    @Autowired
+    public PaymentController(PaymentsService paymentsService, StripeService stripeService) {
+        this.paymentsService = paymentsService;
+        this.stripeService = stripeService;
+    }
 
     @PostMapping("/create-checkout-session")
     public Map<String, String> createCheckoutSession(@AuthenticationPrincipal String userSub, @RequestBody Map<String, Object> request) throws Exception {

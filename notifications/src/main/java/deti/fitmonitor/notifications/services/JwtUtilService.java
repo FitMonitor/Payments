@@ -37,9 +37,7 @@ public class JwtUtilService {
 
     public Claims verifyToken(String token) throws Exception {
         String kid = extractKidFromToken(token);
-        System.out.println("Kid: " + kid);
         RSAPublicKey publicKey = getPublicKeyFromJwks(kid);
-        System.out.println("Public key: " + publicKey);
         return Jwts.parser().setSigningKey(publicKey).build().parseSignedClaims(token).getPayload();
     }
 
@@ -94,15 +92,8 @@ public class JwtUtilService {
         return (RSAPublicKey) keyFactory.generatePublic(spec);
     }
 
-    // Extract the username (subject) from the token
-    public String extractUsername(String token) throws Exception {
-        Claims claims = verifyToken(token);
-        return claims.getSubject();
-    }
-
     // Extract the role from the token (assuming "role" is a claim)
     public List<String> extractRoles(String token) throws Exception {
-        System.out.println("Extracting roles");
         Claims claims = verifyToken(token);
     
         // Extract the list of roles from "cognito:groups"
@@ -126,11 +117,6 @@ public class JwtUtilService {
     }
 
     public boolean validateToken(String token) throws Exception {
-        // Extract the username from the token
-        String username = extractUserSub(token);
-        // Extract the expiration date from the token
-        Date expiration = extractExpiration(token);
-        // Check if the token has expired
         if (isTokenExpired(token)) {
             return false;
         }

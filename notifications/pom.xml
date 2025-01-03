@@ -25,9 +25,10 @@
 		<sonar.exclusions>
 			**/configuration/**,
 			**/exceptions/**,
-			deti/fitmonitor/notifications/services/JwtUtilService.class,
-			deti/fitmonitor/notifications/NotificationsApplication.class,
-				deti/fitmonitor/notifications/controllers/GetTokenController.class
+			**/deti/fitmonitor/notifications/configuration/JwtAuthFilter*, 
+			**/deti/fitmonitor/notifications/services/JwtUtilService*, 
+			**/deti/fitmonitor/notifications/controllers/GetTokenController*, 
+			**/deti/fitmonitor/notifications/UsersApplication*,
 		</sonar.exclusions>
 	</properties>
 	<dependencies>
