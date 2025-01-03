@@ -52,7 +52,7 @@ class StripeServiceTest {
                     stripeService.createCheckoutSession(5000L, "usd", "http://success.url", "http://cancel.url","user_sub")
             );
 
-            assertEquals("Stripe API error", exception.getMessage());
+            assertEquals("Error occurred while creating the Stripe checkout session", exception.getMessage());
 
             sessionMock.verify(() -> Session.create(any(SessionCreateParams.class)), times(1));
         }
