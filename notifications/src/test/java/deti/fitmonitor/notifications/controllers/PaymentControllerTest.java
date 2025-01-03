@@ -18,6 +18,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Date;
@@ -77,7 +80,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    @Disabled
+    @WithMockUser(value = "user123")
     void testGetSubscriptionDate() throws Exception {
         String userSub = "user123";
 
@@ -93,24 +96,31 @@ class PaymentControllerTest {
 
         when(paymentsService.getPayment(userSub)).thenReturn(mockPayment);
 
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userSub, null));
+
+
         mockMvc.perform(get("/api/payment/user/subscriptiondate")
                 .requestAttr("userSub", userSub))
-                .andExpect(content().string("Jan 01 00:00:00 WET 2023"));
+                .andExpect(content().string(mockPayment.getSubscriptionDate().toString()));
 
         verify(paymentsService, times(1)).getPayment(userSub);
     }
 
     @Test
-    @Disabled
+    @WithMockUser(username = "user123")
     void testGetSubscriptionDateNotFound() throws Exception {
         String userSub = "user123";
 
         when(paymentsService.getPayment(userSub)).thenReturn(null);
 
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userSub, null));
+
+
 
         mockMvc.perform(get("/api/payment/user/subscriptiondate"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("null"));
+                .andExpect(content().string(""));
+                
 
         verify(paymentsService, times(1)).getPayment(userSub);
     }
