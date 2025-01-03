@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import deti.fitmonitor.notifications.models.Payments;
 import deti.fitmonitor.notifications.services.StripeService;
-import deti.fitmonitor.notifications.services.paymentsService;
+import deti.fitmonitor.notifications.services.PaymentsService;
 
 @RestController
 @RequestMapping("/api/payment")
@@ -22,7 +22,7 @@ import deti.fitmonitor.notifications.services.paymentsService;
 public class PaymentController {
 
     @Autowired
-    private paymentsService paymentsService;
+    private PaymentsService paymentsService;
 
     @Autowired
     private StripeService stripeService;

@@ -3,7 +3,7 @@ package deti.fitmonitor.notifications.services;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import deti.fitmonitor.notifications.models.Payments;
-import deti.fitmonitor.notifications.services.paymentsService;
+import deti.fitmonitor.notifications.services.PaymentsService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -21,9 +21,9 @@ public class StripeWebhookService {
     private static final Logger logger = LoggerFactory.getLogger(StripeWebhookService.class);
 
 
-    private final paymentsService paymentsService;
+    private final PaymentsService paymentsService;
 
-    public StripeWebhookService(paymentsService paymentsService) {
+    public StripeWebhookService(PaymentsService paymentsService) {
         this.paymentsService = paymentsService;
     }
 

@@ -22,6 +22,13 @@
 		<webdrivermanager.version>5.7.0</webdrivermanager.version>
 		<sonar.organization>fitmonitor</sonar.organization>
 	    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.exclusions>
+			**/configuration/**,
+			**/exceptions/**,
+			deti/fitmonitor/notifications/services/JwtUtilService.class,
+			deti/fitmonitor/notifications/NotificationsApplication.class,
+				deti/fitmonitor/notifications/controllers/GetTokenController.class
+		</sonar.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -214,6 +221,9 @@
 					<excludes>
 						<exclude>**/configuration/**</exclude>
 						<exclude>**/exceptions/**</exclude>
+						<exclude>deti/fitmonitor/notifications/services/JwtUtilService.class</exclude>
+						<exclude>deti/fitmonitor/notifications/NotificationsApplication.class</exclude>
+						<exclude>deti/fitmonitor/notifications/controllers/GetTokenController.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>

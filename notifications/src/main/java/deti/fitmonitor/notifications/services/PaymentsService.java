@@ -7,11 +7,11 @@ import deti.fitmonitor.notifications.models.Payments;
 import deti.fitmonitor.notifications.repositories.paymentsRepository;
 
 @Service
-public class paymentsService {
+public class PaymentsService {
 
     private final paymentsRepository paymentsRepository;
 
-    public paymentsService(paymentsRepository paymentsRepository) {
+    public PaymentsService(paymentsRepository paymentsRepository) {
         this.paymentsRepository = paymentsRepository;
     }
 
