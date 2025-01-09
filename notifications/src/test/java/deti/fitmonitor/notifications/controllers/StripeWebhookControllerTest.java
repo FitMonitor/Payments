@@ -43,7 +43,7 @@ class StripeWebhookControllerTest {
             webhookMock.when(() -> Webhook.constructEvent(payload, sigHeader, endpointSecret))
                     .thenReturn(mockEvent);
 
-            mockMvc.perform(post("/api/webhooks")
+            mockMvc.perform(post("/default/api/payments/webhooks")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(payload)
                             .header("Stripe-Signature", sigHeader))

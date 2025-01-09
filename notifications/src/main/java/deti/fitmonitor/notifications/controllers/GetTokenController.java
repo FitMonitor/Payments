@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
-@CrossOrigin(origins = "http://localhost:4200") // Allow all origins for CORS
+@CrossOrigin(origins = "https://es-ua.ddns.net")
 @RestController
 @RequestMapping("/api/token")
 public class GetTokenController {
@@ -105,7 +105,7 @@ public class GetTokenController {
             // Prepare body
             String body = "grant_type=authorization_code" +
                           "&code=" + code +
-                          "&redirect_uri=http://localhost:4200/callback";
+                          "&redirect_uri=https://es-ua.ddns.net/callback";
 
             // Create request entity
             HttpEntity<String> entity = new HttpEntity<>(body, headers);

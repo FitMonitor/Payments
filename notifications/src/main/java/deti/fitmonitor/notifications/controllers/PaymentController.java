@@ -21,8 +21,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
-@RequestMapping("/api/payment")
-@CrossOrigin("http://localhost:4200")
+@RequestMapping("/default/api/payments")
+@CrossOrigin(origins = "https://es-ua.ddns.net")
 public class PaymentController {
 
     private PaymentsService paymentsService;
@@ -60,6 +60,12 @@ public class PaymentController {
             return payment.getSubscriptionDate().toString();
         }
         return null;
+    }
+
+    //test method
+    @GetMapping("/test")
+    public String test() {
+        return "Test";
     }
     
 }

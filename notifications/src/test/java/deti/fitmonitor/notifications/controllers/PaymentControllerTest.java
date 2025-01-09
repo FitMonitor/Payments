@@ -60,7 +60,7 @@ class PaymentControllerTest {
 
         when(stripeService.createCheckoutSession(any(), any(), any(), any(),any())).thenReturn(mockResponse);
 
-        mockMvc.perform(post("/api/payment/create-checkout-session")
+        mockMvc.perform(post("/default/api/payments/create-checkout-session")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestData)))
                 .andExpect(status().isOk())
@@ -73,7 +73,7 @@ class PaymentControllerTest {
     void testCreateCheckoutSession_withMissingFields() throws Exception {
 
 
-        mockMvc.perform(post("/api/payment/create-checkout-session")
+        mockMvc.perform(post("/default/api/payments/create-checkout-session")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
@@ -98,7 +98,7 @@ class PaymentControllerTest {
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userSub, null));
 
 
-        mockMvc.perform(get("/api/payment/user/subscriptiondate")
+        mockMvc.perform(get("/default/api/payments/user/subscriptiondate")
                 .requestAttr("userSub", userSub))
                 .andExpect(content().string(mockPayment.getSubscriptionDate().toString()));
 
@@ -116,7 +116,7 @@ class PaymentControllerTest {
 
 
 
-        mockMvc.perform(get("/api/payment/user/subscriptiondate"))
+        mockMvc.perform(get("/default/api/payments/user/subscriptiondate"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(""));
                 
