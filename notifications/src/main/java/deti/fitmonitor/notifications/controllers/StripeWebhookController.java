@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
-@RequestMapping("/api/webhooks")
+@RequestMapping("/default/api/payments/webhooks")
 public class StripeWebhookController {
     @Value("${stripe.webhook.secret}")
     private String endpointSecret;

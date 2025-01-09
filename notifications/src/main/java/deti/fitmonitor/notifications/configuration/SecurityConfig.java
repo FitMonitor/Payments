@@ -35,8 +35,10 @@ public class SecurityConfig {
                                 .requestMatchers("/api/token/*").permitAll()
                                 .requestMatchers("/swagger-ui/*").permitAll()
                                 .requestMatchers("/v3/api-docs").permitAll()
-                                .requestMatchers("/api/webhooks/*").permitAll()
-                                .requestMatchers("/api/webhooks*").permitAll()
+                                .requestMatchers("/default/api/payments/webhooks/*").permitAll()
+                                .requestMatchers("/default/api/payments/webhooks*").permitAll()
+                                .requestMatchers("/default/api/payments/test").permitAll()
+                                .requestMatchers("/actuator/health").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
